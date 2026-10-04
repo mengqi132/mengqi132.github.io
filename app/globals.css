@@ -680,21 +680,14 @@ a.pub-title-link:hover .pub-title { color: var(--accent); }
 }
 
 /* ---------- Like & view counters ---------- */
-.counters { display: flex; gap: 8px; padding-top: 14px; }
-.counter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  font: inherit;
-  font-size: 0.78rem;
-  color: var(--ink-2);
-}
-button.counter-btn { cursor: pointer; transition: border-color .2s, color .2s; }
-button.counter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.counter-btn svg { width: 15px; height: 15px; flex: none; }
 .like-btn.liked { color: var(--accent); border-color: var(--accent); }
 .counter-num { font-variant-numeric: tabular-nums; min-width: 1.5ch; }
+.footer-right { display: inline-flex; align-items: center; gap: 8px; }
+.footer-sep { color: var(--ink-3); }
+.view-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-3);
+}
+.view-count svg { width: 13px; height: 13px; }

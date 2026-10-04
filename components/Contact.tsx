@@ -3,6 +3,7 @@
 import { useLang } from '@/lib/i18n';
 import Reveal from './Reveal';
 import { MobileSocials } from './Sidebar';
+import { ViewCounter } from './Counters';
 
 export default function Contact() {
   const { t } = useLang();
@@ -20,7 +21,11 @@ export default function Contact() {
       <MobileSocials />
       <footer className="footer">
         <span>{t.footerLeft}</span>
-        <span>{t.footerRight}</span>
+        <span className="footer-right">
+          {t.footerRight}
+          <span className="footer-sep" aria-hidden>·</span>
+          <ViewCounter />
+        </span>
       </footer>
     </section>
   );

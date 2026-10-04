@@ -13,7 +13,7 @@ import {
   IconSun,
   IconMoon,
 } from './icons';
-import Counters from './Counters';
+import { LikeButton } from './Counters';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -146,9 +146,9 @@ export default function Sidebar() {
               </a>
             ))}
           </div>
-          <Counters />
           <div className="controls">
             <ThemeButton />
+            <LikeButton />
             <LangButton />
           </div>
         </div>
@@ -169,6 +169,7 @@ export function MobileChrome() {
         </div>
         <div className="mobilebar-controls">
           <ThemeButton />
+          <LikeButton />
           <LangButton />
         </div>
       </header>
@@ -187,7 +188,6 @@ export function MobileChrome() {
 export function MobileSocials() {
   return (
     <div className="socials-mobile">
-      <Counters />
       {PROFILE_LINKS.map(({ href, label, Icon }) => (
         <a
           key={label}
