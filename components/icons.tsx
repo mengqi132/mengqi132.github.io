@@ -97,3 +97,16 @@ export const IconOpenReview = (p: P) => (
     <path d="M12 5.5v13.3" />
   </svg>
 );
+
+export const IconHeart = ({ filled, ...p }: P & { filled?: boolean }) => (
+  <svg {...stroke(p)} fill={filled ? 'currentColor' : 'none'}>
+    <path d="M12 20.3C6.4 16.9 3 13.7 3 9.9 3 7.2 5.1 5 7.8 5c1.6 0 3.2.8 4.2 2.1C13 5.8 14.6 5 16.2 5 18.9 5 21 7.2 21 9.9c0 3.8-3.4 7-9 10.4Z" />
+  </svg>
+);
+
+export const IconEye = (p: P) => (
+  <svg {...stroke(p)}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);

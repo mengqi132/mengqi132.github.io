@@ -61,6 +61,7 @@ const dict = {
     contactTitle: 'Contact',
     contactNote:
       'I am actively seeking research collaborations on Physical AI and agentic RL, as well as internship opportunities in agent RL post-training — feel free to reach out by email.',
+    counters: { like: 'Like — every click counts', views: 'Page views' },
     footerLeft: '© 2026 Yizhou Zhang',
     footerRight: 'Next.js · Framer Motion · GitHub Pages',
     themeToggle: 'Toggle theme',
@@ -121,6 +122,7 @@ const dict = {
     ] as { year: string; title: string }[],
     contactTitle: '联系方式',
     contactNote: '我正在寻求物理智能（Physical AI）与智能体强化学习（Agentic RL）方向的科研合作，以及 agent RL 后训练方向的实习机会——欢迎随时邮件联系。',
+    counters: { like: '点赞，每次点击都会计数', views: '浏览次数' },
     footerLeft: '© 2026 章一舟',
     footerRight: 'Next.js · Framer Motion · GitHub Pages',
     themeToggle: '切换主题',

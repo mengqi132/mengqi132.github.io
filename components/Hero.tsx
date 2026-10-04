@@ -1,23 +1,52 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useLang } from '@/lib/i18n';
 import { EASE_OUT } from './Reveal';
 
-/** Hero: headline lines rise one by one from behind a mask,
-    then the bio and the fact rows settle into place. */
+/** Hero: the headline is typed character by character (replayed when
+    the language switches); the bio and fact rows fade in while typing
+    is still underway. A <noscript> copy keeps the text accessible
+    without JavaScript. */
 export default function Hero() {
   const { t, lang } = useLang();
   const reduce = useReducedMotion();
+  const lines = t.heroLines;
 
-  const lines = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.13, delayChildren: 0.15 } },
-  };
-  const line = {
-    hidden: { y: reduce ? 0 : '112%' },
-    show: { y: 0, transition: { duration: 0.95, ease: EASE_OUT } },
-  };
+  const [typed, setTyped] = useState({ line: 0, ch: 0 });
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (reduce) {
+      setDone(true);
+      return;
+    }
+    let line = 0;
+    let ch = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    setTyped({ line: 0, ch: 0 });
+    setDone(false);
+    const tick = () => {
+      if (line >= lines.length) {
+        setDone(true);
+        return;
+      }
+      const text = lines[line];
+      if (ch <= text.length) {
+        setTyped({ line, ch });
+        ch += 1;
+        timer = setTimeout(tick, 38 + Math.random() * 46);
+      } else {
+        line += 1;
+        ch = 0;
+        timer = setTimeout(tick, 300);
+      }
+    };
+    timer = setTimeout(tick, 350);
+    return () => clearTimeout(timer);
+  }, [lines, reduce]);
+
   const fade = {
     hidden: { opacity: 0, y: reduce ? 0 : 18 },
     show: (d: number) => ({
@@ -27,21 +56,47 @@ export default function Hero() {
     }),
   };
 
+  const cursorOn = !reduce && !done;
+
   return (
     <section id="about" className="hero" aria-label={t.nav.about}>
-      {/* key={lang} replays the entrance when the language switches */}
-      <motion.div key={lang} variants={lines} initial="hidden" animate="show">
+      <noscript>
         <div className="hero-lines">
-          {t.heroLines.map((l, i) => (
+          {lines.map((l, i) => (
             <span className="hero-line" key={i}>
-              <motion.span variants={line}>{l}</motion.span>
+              <span>{l}</span>
             </span>
           ))}
         </div>
-        <motion.p className="hero-bio" variants={fade} custom={0.65}>
+      </noscript>
+      {/* key={lang} replays the typing when the language switches */}
+      <div key={lang}>
+        <div className="hero-lines" aria-hidden={!done}>
+          {lines.map((l, i) => {
+            const shown =
+              done || reduce
+                ? l
+                : i < typed.line
+                  ? l
+                  : i === typed.line
+                    ? l.slice(0, typed.ch)
+                    : '';
+            const showCursor =
+              !reduce && (cursorOn ? i === typed.line : i === lines.length - 1);
+            return (
+              <span className="hero-line" key={i}>
+                <span>
+                  {shown}
+                  {showCursor ? <span className="type-cursor" /> : null}
+                </span>
+              </span>
+            );
+          })}
+        </div>
+        <motion.p className="hero-bio" variants={fade} custom={1.2} initial="hidden" animate="show">
           {t.heroBio}
         </motion.p>
-        <motion.dl className="facts" variants={fade} custom={0.85}>
+        <motion.dl className="facts" variants={fade} custom={1.45} initial="hidden" animate="show">
           {t.facts.map((f) => (
             <div className="fact-row" key={f.label}>
               <dt className="fact-label">{f.label}</dt>
@@ -61,7 +116,7 @@ export default function Hero() {
             </div>
           ))}
         </motion.dl>
-      </motion.div>
+      </div>
     </section>
   );
 }
