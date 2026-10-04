@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# preview artifacts (copied from dist for platform preview)
+/index.html
+/404.html
+/_next/
+/avatar.jpg
+/icon.png
+/publications.bib
+/figures/
