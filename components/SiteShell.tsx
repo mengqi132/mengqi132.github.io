@@ -4,6 +4,7 @@ import Sidebar, { MobileChrome } from './Sidebar';
 import Hero from './Hero';
 import Publications from './Publications';
 import Education from './Education';
+import Awards from './Awards';
 import Contact from './Contact';
 
 export default function SiteShell() {
@@ -16,6 +17,7 @@ export default function SiteShell() {
           <Hero />
           <Publications />
           <Education />
+          <Awards />
           <Contact />
         </main>
       </div>

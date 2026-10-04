@@ -95,6 +95,7 @@ function useNav() {
     { href: '#about', label: t.nav.about },
     { href: '#publications', label: t.nav.publications },
     { href: '#education', label: t.nav.education },
+    { href: '#awards', label: t.nav.awards },
     { href: '#contact', label: t.nav.contact },
   ];
 }

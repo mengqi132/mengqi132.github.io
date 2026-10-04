@@ -21,6 +21,14 @@ import {
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const ME = 'yizhou zhang';
 
+/** Representative figure for each entry, keyed by bib key
+    (kept out of the .bib file, which holds standard BibTeX only). */
+const FIGURES: Record<string, string> = {
+  zhang2026dypsi: 'figures/dypsi.png',
+  jin2026ariadne: 'figures/ariadne.png',
+  guo2026geoexpert: 'figures/geo-expert.png',
+};
+
 type Filter = 'all' | Publication['type'];
 
 function usePublications() {
@@ -29,7 +37,9 @@ function usePublications() {
     fetch(`${BASE}/publications.bib`)
       .then((r) => r.text())
       .then((text) => {
-        const list = parseBibtex(text).map(toPublication);
+        const list = parseBibtex(text)
+          .map(toPublication)
+          .map((p) => ({ ...p, figure: FIGURES[p.key] ?? p.figure }));
         // year desc, stable within the same year (bib file order wins)
         list.sort((a, b) => Number(b.year) - Number(a.year));
         setPubs(list);
